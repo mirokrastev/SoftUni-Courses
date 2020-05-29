@@ -1,17 +1,16 @@
-matrix = []
-
 def add_matrix():
-    matrix.append([])
-    columns = list(map(int, input().split()))
-    matrix[-1].extend(columns)
+    arg = [int(i) for i in input().split()]
+    matrix.append(arg)
 
-def diagonal():
-    the_sum = 0
-    for i in range(len(matrix)):
-        the_sum += matrix[i][i]
 
-    return the_sum
+def calc_diagonal(index):
+    global diagonal
+    diagonal += matrix[index][index]
 
-square_matrix = int(input())
-[add_matrix() for i in range(square_matrix)]
-print(diagonal())
+
+row_column = int(input())
+matrix = []
+diagonal = 0
+[add_matrix() for i in range(row_column)]
+[calc_diagonal(i) for i in range(len(matrix))]
+print(diagonal)

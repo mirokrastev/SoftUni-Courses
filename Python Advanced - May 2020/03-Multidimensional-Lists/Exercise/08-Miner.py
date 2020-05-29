@@ -1,87 +1,57 @@
-matrix = []
-
 def add_matrix():
-    global coals, start_position
+    global p, coals_matrix
+
     arg = input().split()
-    matrix.append([])
-    for i in arg:
-        matrix[-1].append(i)
-        if i == 'c':
-            coals += 1
-        elif i == 's':
-            start_position = (len(matrix) - 1, len(matrix[-1]) - 1)
+    for player in range(rows_columns):
+        if arg[player] == 's':
+            p = (len(matrix), player)
+        elif arg[player] == 'c':
+            coals_matrix += 1
+    matrix.append(arg)
 
-square_matrix = int(input())
-commands = input().split()
 
-coals = 0
-start_position = tuple()
+def move_player(before_moving):
+    global p, coals_mined, coals_matrix, death
 
-[add_matrix() for i in range(square_matrix)]
+    if p[0] <= -1 or p[1] <= -1 or p[0] >= len(matrix) or p[1] >= len(matrix):
+        p = before_moving
+        matrix[p[0]][p[1]] = 's'
+        return
 
-def end_game():
-    global start_position
-    print(f'Game over! {start_position}')
-    exit()
-
-def mine_coal():
-    global coals, start_position
-    coals -= 1
-    matrix[start_position[0]][start_position[1]] = 's'
-
-    if coals == 0:
-        print(f"You collected all coals! {start_position}")
+    if matrix[p[0]][p[1]] == 'c':
+        coals_mined += 1
+        coals_matrix -= 1
+    elif matrix[p[0]][p[1]] == 'e':
+        print(f'Game over! {p}')
         exit()
 
-def normal_move():
-    global start_position
-    matrix[start_position[0]][start_position[1]] = 's'
+    matrix[p[0]][p[1]] = 's'
 
-def fn(move):
-    global start_position
-    while move:
-        current_command = move.pop(0)
-        if current_command == 'up':
-            if start_position[0] - 1 >= 0:
-                matrix[start_position[0]][start_position[1]] = '*'
-                start_position = (start_position[0] - 1, start_position[1])
-                if matrix[start_position[0]][start_position[1]] == 'e':
-                    end_game()
-                elif matrix[start_position[0]][start_position[1]] == 'c':
-                    mine_coal()
-                else:
-                    normal_move()
-        elif current_command == 'down':
-            if start_position[0] + 1 < len(matrix):
-                matrix[start_position[0]][start_position[1]] = '*'
-                start_position = (start_position[0] + 1, start_position[1])
-                if matrix[start_position[0]][start_position[1]] == 'e':
-                    end_game()
-                elif matrix[start_position[0]][start_position[1]] == 'c':
-                    mine_coal()
-                else:
-                    normal_move()
-        elif current_command == 'left':
-            if start_position[1] - 1 >= 0:
-                matrix[start_position[0]][start_position[1]] = '*'
-                start_position = (start_position[0], start_position[1] - 1)
-                if matrix[start_position[0]][start_position[1]] == 'e':
-                    end_game()
-                elif matrix[start_position[0]][start_position[1]] == 'c':
-                    mine_coal()
-                else:
-                    normal_move()
-        elif current_command == 'right':
-            if start_position[1] + 1 < len(matrix):
-                matrix[start_position[0]][start_position[1]] = '*'
-                start_position = (start_position[0], start_position[1] + 1)
-                if matrix[start_position[0]][start_position[1]] == 'e':
-                    end_game()
-                elif matrix[start_position[0]][start_position[1]] == 'c':
-                    mine_coal()
-                else:
-                    normal_move()
 
-fn(commands)
+rows_columns = int(input())
+move_commands = input().split()
+matrix = []
+p = (0, 0)
+coals_matrix = 0
+coals_mined = 0
+[add_matrix() for i in range(rows_columns)]
 
-print(f'{coals} coals left. {start_position}')
+for command in move_commands:
+    before_moving = p
+    if command == 'left':
+        p = (p[0], p[1]-1)
+    elif command == 'right':
+        p = (p[0], p[1]+1)
+    elif command == 'down':
+        p = (p[0]+1, p[1])
+    elif command == 'up':
+        p = (p[0]-1, p[1])
+
+    matrix[before_moving[0]][before_moving[1]] = '*'
+
+    move_player(before_moving)
+
+if not coals_matrix:
+    print(f'You collected all coals! {p}')
+elif coals_matrix:
+    print(f'{coals_matrix} coals left. {p}')

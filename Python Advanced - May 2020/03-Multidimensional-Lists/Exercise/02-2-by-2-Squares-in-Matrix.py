@@ -1,24 +1,29 @@
-matrix = []
-
 def add_matrix():
-    arg = input().split()
+    arg = [i for i in input().split()]
     matrix.append(arg)
 
-def fn(rows, columns):
-    result = 0
-    for row in range(rows - 1):
-        for column in range(columns - 1):
-            first = matrix[row][column]
-            second = matrix[row][column + 1]
-            third = matrix[row + 1][column]
-            fourth = matrix[row + 1][column + 1]
 
-            if all([first == second, first == third, first == fourth, second == third, second == fourth,
-                    third == fourth]):
-                result += 1
+def find_square_matrices(coordinate):
+    global square_matrices
 
-    return result
+    coordinate_list = list(coordinate.values())
+    if list(coordinate_list[0] * 4) == coordinate_list:
+        square_matrices += 1
 
-rows, columns = list(map(int, input().split()))
+
+rows, columns = [int(i) for i in input().split()]
+matrix = []
 [add_matrix() for i in range(rows)]
-print(fn(rows, columns))
+square_matrices = 0
+
+for row in range(rows-1):
+    for column in range(columns-1):
+        coordinates = {
+            0: matrix[row][column],
+            1: matrix[row][column+1],
+            2: matrix[row+1][column],
+            3: matrix[row+1][column+1]
+        }
+        find_square_matrices(coordinates)
+
+print(square_matrices)

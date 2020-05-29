@@ -1,5 +1,3 @@
-matrix = []
-
 def add_matrix():
     global player_position
 
@@ -8,74 +6,37 @@ def add_matrix():
     for i in arg:
         matrix[-1].append(i)
         if i == 'P':
-            player_position = [len(matrix) - 1, len(matrix[-1]) - 1]
+            player_position = (len(matrix) - 1, len(matrix[-1]) - 1)
+
 
 def validate(command):
+    global player_position, death
+    old_position = player_position
     matrix[player_position[0]][player_position[1]] = '.'
-    if command == 'L':
-        if player_position[1] - 1 >= 0:
-            move_left()
+
+    change_coordinate = {
+        'L': (player_position[0], player_position[1]-1),
+        'R': (player_position[0], player_position[1]+1),
+        'U': (player_position[0]-1, player_position[1]),
+        'D': (player_position[0]+1, player_position[1])
+    }
+
+    player_position = change_coordinate[command]
+    if player_position[0] <= -1 or player_position[1] <= -1:
+        player_position = old_position
+        win_game()
+
+    try:
+        if matrix[player_position[0]][player_position[1]] == '.':
+            matrix[player_position[0]][player_position[1]] = 'P'
+            validate_bunny()
         else:
-            win_game()
-    elif command == 'R':
-        if player_position[1] + 1 < len(matrix[0]):
-            move_right()
-        else:
-            win_game()
-    elif command == 'U':
-        if player_position[0] - 1 >= 0:
-            move_up()
-        else:
-            win_game()
-    elif command == 'D':
-        if player_position[0] + 1 < len(matrix):
-            move_down()
-        else:
-            win_game()
+            death = True
+            validate_bunny()
+    except IndexError:
+        player_position = old_position
+        win_game()
 
-def move_left():
-    global death
-
-    player_position[1] -= 1
-    if matrix[player_position[0]][player_position[1]] == '.':
-        matrix[player_position[0]][player_position[1]] = 'P'
-        validate_bunny()
-    else:
-        death = True
-        validate_bunny()
-
-def move_right():
-    global death
-
-    player_position[1] += 1
-    if matrix[player_position[0]][player_position[1]] == '.':
-        matrix[player_position[0]][player_position[1]] = 'P'
-        validate_bunny()
-    else:
-        death = True
-        validate_bunny()
-
-def move_up():
-    global death
-
-    player_position[0] -= 1
-    if matrix[player_position[0]][player_position[1]] == '.':
-        matrix[player_position[0]][player_position[1]] = 'P'
-        validate_bunny()
-    else:
-        death = True
-        validate_bunny()
-
-def move_down():
-    global death
-
-    player_position[0] += 1
-    if matrix[player_position[0]][player_position[1]] == '.':
-        matrix[player_position[0]][player_position[1]] = 'P'
-        validate_bunny()
-    else:
-        death = True
-        validate_bunny()
 
 def validate_bunny():
     bunny_locations = []
@@ -85,39 +46,36 @@ def validate_bunny():
                 bunny_locations.append((row, column))
     move_bunny(bunny_locations)
 
+
 def move_bunny(bunny_coordinates):
     global death
 
     while bunny_coordinates:
-        bunny_locations = bunny_coordinates.pop(0)
-        top = (bunny_locations[0] - 1, bunny_locations[1])
-        left = (bunny_locations[0], bunny_locations[1] - 1)
-        right = (bunny_locations[0], bunny_locations[1] + 1)
-        bottom = (bunny_locations[0] + 1, bunny_locations[1])
+        bunny_location = bunny_coordinates.pop(0)
+        bunny_coord = {
+            0: (bunny_location[0]-1, bunny_location[1]),
+            1: (bunny_location[0], bunny_location[1]-1),
+            2: (bunny_location[0], bunny_location[1]+1),
+            3: (bunny_location[0]+1, bunny_location[1])
+        }
 
-        if top[0] >= 0:
-            if matrix[top[0]][top[1]] == 'P':
-                death = True
-            matrix[top[0]][top[1]] = 'B'
-        if left[1] >= 0:
-            if matrix[left[0]][left[1]] == 'P':
-                death = True
-            matrix[left[0]][left[1]] = 'B'
-        if right[1] < len(matrix[0]):
-            if matrix[right[0]][right[1]] == 'P':
-                death = True
-            matrix[right[0]][right[1]] = 'B'
-        if bottom[0] < len(matrix):
-            if matrix[bottom[0]][bottom[1]] == 'P':
-                death = True
-            matrix[bottom[0]][bottom[1]] = 'B'
+        for row, col in bunny_coord.values():
+            try:
+                if row >= 0 and col >= 0:
+                    if matrix[row][col] == 'P':
+                        death = True
+                    matrix[row][col] = 'B'
+            except IndexError: continue
+
     if death:
         end_game()
+
 
 def end_game():
     [print(*i, sep='') for i in matrix]
     print(f'dead: {player_position[0]} {player_position[1]}')
     exit()
+
 
 def win_game():
     validate_bunny()
@@ -125,9 +83,11 @@ def win_game():
     print(f'won: {player_position[0]} {player_position[1]}')
     exit()
 
-rows, columns = [int(i) for i in input().split()]
-player_position = []
+
+rows, columns = map(int, input().split())
+player_position = ()
 death = False
+matrix = []
 [add_matrix() for i in range(rows)]
 commands = input()
 [validate(i) for i in commands]

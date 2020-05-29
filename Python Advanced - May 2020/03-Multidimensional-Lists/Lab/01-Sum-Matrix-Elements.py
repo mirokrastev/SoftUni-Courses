@@ -1,16 +1,19 @@
+def add_matrix():
+    arg = [int(i) for i in input().split(', ')]
+    matrix.append(arg)
+
+
+def calculate_matrix(matrix):
+    result = 0
+    for row in range(len(matrix)):
+        for column in range(len(matrix[row])):
+            result += matrix[row][column]
+    return result
+
+
+row, column = [int(i) for i in input().split(', ')]
 matrix = []
-
-def append_matrix(columns_app):
-    matrix.append([])
-    matrix[-1].extend(columns_app)
-
-def sum_matrix():
-    the_sum = 0
-    for i in range(len(matrix)):
-        the_sum += sum(matrix[i])
-    return the_sum
-
-rows,columns = map(int, input().split(', '))
-[append_matrix(list(map(int, input().split(', ')))) for i in range(rows)]
-print(sum_matrix())
+[add_matrix() for i in range(row)]
+the_sum = calculate_matrix(matrix)
+print(the_sum)
 print(matrix)

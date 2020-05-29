@@ -1,43 +1,37 @@
-matrix = []
-
 def add_matrix():
     arg = input().split()
     matrix.append(arg)
 
 
-def fn(row_one, col_one, row_two, col_two):
-    first_eval = matrix[row_one][col_one]
-    second_eval = matrix[row_two][col_two]
+def swap_matrix_el(coordinate):
+    first_inx, second_inx = coordinate[0][1]
+    third_inx, fourth_inx = coordinate[1][1]
+    matrix[first_inx][second_inx] = coordinate[1][0]
+    matrix[third_inx][fourth_inx] = coordinate[0][0]
 
-    matrix[row_one][col_one] = second_eval
-    matrix[row_two][col_two] = first_eval
 
+def print_matrix():
     [print(*i, sep=' ') for i in matrix]
 
-def inp_process(arg):
-    row_one = int(arg[1])
-    col_one = int(arg[2])
-    row_two = int(arg[3])
-    col_two = int(arg[4])
 
-    if all([row_one <= len(matrix) - 1, row_two <= len(matrix) - 1]) and \
-            all([col_one <= len(matrix[0]) - 1, col_two <= len(matrix[0]) - 1]):
-        fn(row_one, col_one, row_two, col_two)
-    else:
-        print('Invalid input!')
-
-rows, columns = list(map(int, input().split()))
+rows, columns = [int(i) for i in input().split()]
+matrix = []
 [add_matrix() for i in range(rows)]
 
 while True:
-    inp = input().split()
-    command = inp[0]
-    if command == 'END':
-        exit()
-    if command == 'swap':
-        if len(inp) == 5:
-            inp_process(inp)
-        else:
+    command = input().split()
+    if command[0] == 'END':
+        break
+    if command[0] == 'swap':
+        try:
+            one, two, tree, four = map(int, command[1:])
+            coordinates = {
+                0: [matrix[one][two], (one, two)],
+                1: [matrix[tree][four], (tree, four)],
+            }
+            swap_matrix_el(coordinates)
+            print_matrix()
+        except:
             print('Invalid input!')
     else:
         print('Invalid input!')

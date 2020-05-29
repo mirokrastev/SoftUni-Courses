@@ -1,18 +1,19 @@
-matrix = []
-
 def add_matrix():
-    inp = input()
-    matrix.append([])
-    matrix[-1].append(inp)
+    arg = [i for i in input()]
+    matrix.append(arg)
 
-def search(char):
-    for i in range(len(matrix)):
-        if char in matrix[i][0]:
-            print(f'({i}, {matrix[i][0].index(char)})')
+
+def find_symbol(row):
+    for column in range(len(matrix)):
+        if symbol == matrix[row][column]:
+            print(f'({row}, {column})')
             exit()
 
-row = int(input())
-[add_matrix() for i in range(row)]
-char = input()
-search(char)
-print(f'{char} does not occur in the matrix')
+
+rows_cols = int(input())
+matrix = []
+[add_matrix() for i in range(rows_cols)]
+symbol = input()
+[find_symbol(i) for i in range(len(matrix))]
+
+print(f'{symbol} does not occur in the matrix')
