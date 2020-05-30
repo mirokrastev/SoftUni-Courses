@@ -1,2 +1,2 @@
-inp = input().split(', ')
-print({k:ord(k) for k in inp})
+d = {i: ord(i) for i in input().split(', ')}
+print(d)

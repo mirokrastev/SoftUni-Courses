@@ -1,6 +1,1 @@
-matrix = []
-d = int(input())
-for i in range(d):
-    for l in list(map(int, input().split(', '))):
-        matrix.append(l)
-print(matrix)
+print([item for sublist in [[int(j) for j in input().split(', ')] for num in range(int(input()))] for item in sublist])
