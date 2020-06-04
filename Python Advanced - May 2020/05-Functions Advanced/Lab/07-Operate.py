@@ -1,12 +1,10 @@
-def operate(*args):
-    operator = args[0]
-    args = args[1:]
+def operate(operator, *args):
+    result = 0
+
     if operator == "+":
-        result = 0
         for arg in args:
             result += arg
     elif operator == "-":
-        result = 0
         for arg in args:
             result -= arg
     elif operator == "*":
