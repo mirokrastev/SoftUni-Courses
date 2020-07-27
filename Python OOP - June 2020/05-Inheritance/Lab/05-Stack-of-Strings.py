@@ -1,18 +1,18 @@
 class Stack:
     def __init__(self):
-        self.__data = []
+        self.data = []
 
     def push(self, item):
-        self.__data.append(item)
+        self.data.append(item)
 
     def pop(self):
-        return self.__data.pop()
+        return self.data.pop()
 
     def peek(self):
-        return self.__data[-1]
+        return self.data[-1]
 
     def is_empty(self):
-        return len(self.__data) == 0
+        return len(self.data) == 0
 
-    def __repr__(self):
-        return f'{self.__data[::-1]}'
+    def __str__(self):
+        return f"[{', '.join(self.data[::-1])}]"

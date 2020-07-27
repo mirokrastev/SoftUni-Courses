@@ -1,2 +1,2 @@
-def execute(func, *args):
-    return func(*args)
+def execute(function, *args):
+    return function(*args)

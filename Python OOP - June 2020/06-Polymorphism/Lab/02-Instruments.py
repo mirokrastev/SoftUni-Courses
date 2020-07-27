@@ -1,2 +1,2 @@
-def play_instrument(instance):
-    return instance.play()
+def play_instrument(instrument):
+    return instrument.play()
