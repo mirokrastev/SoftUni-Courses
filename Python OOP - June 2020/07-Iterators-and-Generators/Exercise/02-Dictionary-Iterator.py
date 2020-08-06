@@ -1,21 +1,15 @@
 class dictionary_iter:
     def __init__(self, dict_obj: dict):
         self.dict_obj = dict_obj
-        self.key = list(self.dict_obj.keys())
-        self.index = 0
-        self.dict_length = len(self.key)
+        self.keys = list(self.dict_obj.keys())
+        self.inx = 0
 
     def __iter__(self):
         return self
 
     def __next__(self):
-        index = self.index
-
-        if index == self.dict_length:
+        if self.inx >= len(self.keys):
             raise StopIteration
-
-        key = self.key[index]
-        value = self.dict_obj[key]
-        self.index += 1
-
-        return (current_key, current_value)
+        i = self.inx
+        self.inx += 1
+        return (self.keys[i], self.dict_obj[self.keys[i]])

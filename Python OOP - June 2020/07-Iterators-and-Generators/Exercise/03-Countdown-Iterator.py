@@ -6,8 +6,8 @@ class countdown_iterator:
         return self
 
     def __next__(self):
-        current = self.count
-        if current < 0:
+        if self.count < 0:
             raise StopIteration
+        i = self.count
         self.count -= 1
-        return current
+        return i

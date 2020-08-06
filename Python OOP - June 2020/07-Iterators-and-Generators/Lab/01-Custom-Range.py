@@ -1,15 +1,14 @@
 class custom_range:
     def __init__(self, start, end):
-        self.i = start
-        self.n = end
+        self.start = start
+        self.end = end
 
     def __iter__(self):
         return self
 
     def __next__(self):
-        if self.n < self.i:
+        if self.end < self.start:
             raise StopIteration
-        i = self.i
-        self.i += 1
-
+        i = self.start
+        self.start += 1
         return i
