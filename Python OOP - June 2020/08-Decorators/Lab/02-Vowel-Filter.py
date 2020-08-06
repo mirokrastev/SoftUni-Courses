@@ -1,6 +1,8 @@
 def vowel_filter(function):
+    VOWELS = {'a', 'e', 'i', 'o', 'u', 'y'}
+
     def wrapper():
-        vowels = {'a', 'e', 'i', 'o', 'u'}
-        return [i for i in function() if i in vowels]
+        ll = function()
+        return list(filter(lambda x: x.lower() in VOWELS, ll))
 
     return wrapper

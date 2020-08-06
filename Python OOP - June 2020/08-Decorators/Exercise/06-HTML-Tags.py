@@ -3,6 +3,5 @@ def tags(tag):
         def wrapper(*args):
             result = func(*args)
             return f'<{tag}>{result}</{tag}>'
-
         return wrapper
     return fn

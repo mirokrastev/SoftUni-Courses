@@ -1,5 +1,2 @@
 def number_increment(numbers):
-    def increase():
-        return [i+1 for i in numbers]
-
-    return increase()
+    return [num + 1 for num in numbers]

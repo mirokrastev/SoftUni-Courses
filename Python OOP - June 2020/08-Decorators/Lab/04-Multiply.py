@@ -1,6 +1,6 @@
 def multiply(times):
     def decorator(function):
-        def wrapper(params):
-            return times * function(params)
+        def wrapper(param):
+            return times * function(param)
         return wrapper
     return decorator

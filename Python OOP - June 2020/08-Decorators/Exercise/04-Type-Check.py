@@ -1,9 +1,8 @@
-def type_check(var_type):
+def type_check(type):
     def fn(function):
         def wrapper(*args):
-            if not isinstance(*args, var_type):
+            if not isinstance(*args, type):
                 return 'Bad Type'
-
             return function(*args)
         return wrapper
     return fn
