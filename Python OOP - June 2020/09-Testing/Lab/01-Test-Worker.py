@@ -1,75 +1,40 @@
 import unittest
 
+
 class WorkerTests(unittest.TestCase):
+    def setUp(self):
+        self.worker = Worker('Pesho', 2000, 100)
+
     def test_one(self):
-        """
-         Test if the worker is initialized with correct name, salary and energy
-        """
-        name = 'Test Name'
-        salary = 1000
-        energy = 5
-        worker = Worker(name, salary, energy)
-        self.assertEqual(worker.name, name)
-        self.assertEqual(worker.salary, salary)
-        self.assertEqual(worker.energy, energy)
+        name, salary, energy = (self.worker.name, self.worker.salary, self.worker.energy)
+        self.assertEqual(name, 'Pesho')
+        self.assertEqual(salary, 2000)
+        self.assertEqual(energy, 100)
 
     def test_two(self):
-        """
-        Test if the worker's energy is incremented after the rest method is called
-        """
-        name = 'Test Name'
-        salary = 1000
-        energy = 5
-        worker = Worker(name, salary, energy)
+        worker = Worker('Gosho', 1500, 90)
+        self.assertEqual(worker.energy, 90)
         worker.rest()
-        self.assertEqual(worker.energy, energy+1)
+        self.assertEqual(worker.energy, 91)
 
     def test_three(self):
-        """
-        Test if an error is raised if the worker tries to work with negative energy or equal to 0
-        """
-        name = 'Test Name'
-        salary = 1000
-        energy = 0
-        worker = Worker(name, salary, energy)
+        worker = Worker('Ivan', 100, 1)
+        self.assertEqual(worker.energy, 1)
+        worker.work()
+        self.assertEqual(worker.energy, 0)
         with self.assertRaises(Exception):
             worker.work()
 
     def test_four(self):
-        """
-        Test if the worker's money is increased by his salary correctly after the work method is called
-        """
-        name = 'Test Name'
-        salary = 1000
-        energy = 55
-        worker = Worker(name, salary, energy)
-        worker.work()
-        self.assertEqual(worker.money, worker.salary)
-        worker.work()
-        self.assertEqual(worker.money, worker.salary * 2)
-
-    def test_five(self):
-        """
-        Test if the worker's energy is decreased after the work method is called
-        """
-        name = 'Test Name'
-        salary = 1000
-        energy = 5
-        worker = Worker(name, salary, energy)
-        worker.work()
-        self.assertEqual(worker.energy, energy-1)
+        self.assertEqual(self.worker.money, 0)
+        self.worker.work()
+        self.assertEqual(self.worker.money, 2000)
 
     def test_six(self):
-        """
-        Test if the get_info method returns the proper string with correct values
-        """
-        name = 'Test Name'
-        salary = 1000
-        energy = 5
-        worker = Worker(name, salary, energy)
-        info = worker.get_info()
-        expected_info = f'{worker.name} has saved 0 money.'
-        self.assertEqual(info, expected_info)
+        string = self.worker.get_info()
+        to_compare = f'{self.worker.name} has saved {self.worker.money} money.'
+        self.assertEqual(string, to_compare)
+
 
 if __name__ == '__main__':
     unittest.main()
