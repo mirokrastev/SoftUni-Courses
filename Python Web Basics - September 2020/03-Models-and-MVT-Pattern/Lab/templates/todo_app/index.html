@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+    <title>Home</title>
+</head>
+<body>
+<div class="main">
+    <h1>My Todo List</h1>
+    {% if todos %}
+        {% for todo in todos %}
+        <div class="todo">
+            <h2 style="text-decoration: underline">{{ todo.title }}</h2><br>
+            <span>{{ todo.description }}</span>
+            {% if todo.is_done %}
+            <p class="done">DONE</p>
+            {% else %}
+                <p class="open">NOT DONE</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+    {% endif %}
+</div>
+</body>
+</html>

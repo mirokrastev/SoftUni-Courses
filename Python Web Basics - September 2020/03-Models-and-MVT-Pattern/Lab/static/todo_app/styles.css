@@ -1,0 +1,18 @@
+.main {
+    text-align: center;
+    margin: auto;
+}
+
+.todo {
+    border: 10px solid lawngreen;
+}
+
+.done {
+    font-weight: bold;
+    color: lawngreen;
+}
+
+.open {
+    font-weight: bold;
+    color: orangered;
+}
