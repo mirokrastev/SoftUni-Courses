@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <div class="d-flex">
+            <div class="d-inline p-2 w-50">
+                <img src="{{ pet.image_field.url }}" class="w-50 rounded mx-auto d-block">
+            </div>
+            <div class="d-inline p-2 w-50">
+                <div class="d-flex justify-content-between">
+                    <h5><u>Type:</u> {{ pet.type }}</h5>
+                    <h5><u>Name:</u> {{ pet.name }}</h5>
+                    <h5><u>Age:</u> {{ pet.age }}</h5>
+                </div>
+                <p class="mt-2">Description: {{ pet.description }}</p>
+                <a href="{% url 'pet_edit' pet.pk %}" class="btn btn-success">Edit</a>
+                <a href="{% url 'pet_delete' pet.pk %}" class="btn btn-danger">Delete</a><br>
+				<a href="{% url 'pet_like' pet.pk %}"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
+                <p class="mt-2">Likes: {{ likes }}</p>
+            </div>
+        </div>
+        <div class="d-block" style="background-color: #f1e3e3; padding:2%">
+            {% if comments %}
+                {% for comment in comments %}
+                    <div class="box">
+                        <h5><em>{{ comment.comment }}</em></h5>
+                        <hr>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="box">
+                    <h3>There are no comments for this pet. </h3>
+                </div>
+            {% endif %}
+            <div class="box">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ comment_form }}
+                    <button class="btn btn-primary mt-2" type="submit">Add comment</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
