@@ -1,0 +1,17 @@
+.not_active {
+    pointer-events: none;
+    cursor: default;
+    text-decoration: none;
+}
+
+.box {
+    background-color: gray;
+    height:100vh;
+}
+
+.centered_tag {
+    position: relative;
+    top: 50%;
+    text-align: center;
+    color: white;
+}
