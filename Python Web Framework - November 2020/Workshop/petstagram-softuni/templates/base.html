@@ -1,13 +1,13 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     {% block title %}<title>Petstagram</title>{% endblock title %}
-
     {% include 'shared/links/bootstrap_links.html' %}
 </head>
 <body>
-{% include 'shared/navbar.html' %}
+{% include 'shared/navbar/navbar.html' %}
 
 {% block content %}{% endblock content %}
 </body>

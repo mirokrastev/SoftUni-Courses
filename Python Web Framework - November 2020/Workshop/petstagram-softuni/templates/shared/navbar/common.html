@@ -1,0 +1,16 @@
+{% if request.user.is_authenticated %}
+    <a class="nav-link" href="{% url 'all_pets' %}">All Pet Photos</a>
+    <a class="nav-link" href="{% url 'pet_create' %}">Add Pet Photo</a>
+    <a class="nav-link" href="{% url 'profile' request.user.pk %}">{{ request.user }}</a>
+    <form method="post" action="{% url 'logout_view' %}" id="logout_id">
+        {% csrf_token %}
+        <a class="nav-link" style="cursor: pointer;" onclick="document.getElementById('logout_id').submit();">Logout</a>
+    </form>
+{% else %}
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'login_view' %}">Sign In</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'register_view' %}">Sign Up</a>
+    </li>
+{% endif %}

@@ -1,0 +1,12 @@
+{% if can_like %}
+<form method="post" action="{% url 'pet_like' pet.pk %}" id="petlike_id">
+    {% csrf_token %}
+    <a style="cursor: pointer;" onclick="document.getElementById('petlike_id').submit();">
+        <i class="fa fa-heart-o" aria-hidden="true"></i>
+    </a>
+</form>
+{% else %}
+    <a disabled="">
+        <i class="fa fa-heart" aria-hidden="true"></i>
+    </a>
+{% endif %}

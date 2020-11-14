@@ -10,19 +10,16 @@
                     <h5><u>Type:</u> {{ pet.type }}</h5>
                     <h5><u>Name:</u> {{ pet.name }}</h5>
                     <h5><u>Age:</u> {{ pet.age }}</h5>
+                    <h5><u>Owner:</u> {{ pet.user }}</h5>
                 </div>
-                <p class="mt-2">Description: {{ pet.description }}</p>
-                <a href="{% url 'pet_edit' pet.pk %}" class="btn btn-success">Edit</a>
-                <a href="{% url 'pet_delete' pet.pk %}" class="btn btn-danger">Delete</a><br>
-				<a href="{% url 'pet_like' pet.pk %}"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
-                <p class="mt-2">Likes: {{ likes }}</p>
+                {% include 'pets/shared/pet_all_actions.html' %}
             </div>
         </div>
         <div class="d-block" style="background-color: #f1e3e3; padding:2%">
             {% if comments %}
                 {% for comment in comments %}
                     <div class="box">
-                        <h5><em>{{ comment.comment }}</em></h5>
+                        <h5><em><u>{{ comment.user }}</u>: {{ comment.comment }}</em></h5>
                         <hr>
                     </div>
                 {% endfor %}
@@ -31,6 +28,7 @@
                     <h3>There are no comments for this pet. </h3>
                 </div>
             {% endif %}
+            {% if comment_form %}
             <div class="box">
                 <form method="post">
                     {% csrf_token %}
@@ -38,6 +36,7 @@
                     <button class="btn btn-primary mt-2" type="submit">Add comment</button>
                 </form>
             </div>
+            {% endif %}
         </div>
     </div>
 {% endblock content %}

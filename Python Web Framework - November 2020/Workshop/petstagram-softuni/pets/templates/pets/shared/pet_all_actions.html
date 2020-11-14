@@ -1,0 +1,10 @@
+{% load restriction_helper %}
+
+<p class="mt-2">Description: {{ pet.description }}</p>
+{% if pet.user.pk == request.user.pk %}
+    <a href="{% url 'pet_edit' pet.pk %}" class="btn btn-success">Edit</a>
+    <a href="{% url 'pet_delete' pet.pk %}" class="btn btn-danger">Delete</a><br>
+{% else %}
+    {% check_for_like request.user.pk pet.pk %}
+{% endif %}
+<p class="mt-2">Likes: {{ likes }}</p>
