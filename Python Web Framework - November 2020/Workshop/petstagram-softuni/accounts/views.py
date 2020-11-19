@@ -4,56 +4,56 @@ from django.http import Http404
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
+from django.views import View
+from django.views.generic import CreateView, FormView
 from accounts.forms import UserProfileModelForm, LoginForm
 from accounts.models import UserProfile
 from pets.common import delete_image
 from pets.models import Pet
 
 
-def register_view(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+class RegisterView(CreateView):
+    form_class = UserCreationForm
+    template_name = 'signup.html'
+    context_object_name = 'form'
 
+    def form_valid(self, form):
         if form.is_valid():
-            form.save()
-            username, password = form.cleaned_data['username'], form.cleaned_data['password1']
-            user = authenticate(request, username=username, password=password)
-
-            UserProfile.objects.create(user=user,
-                                       profile_picture='images/default.png')
-            login(request, user)
+            form = form.save()
+            UserProfile.objects.create(user=form, profile_picture='images/default.png')
+            login(self.request, form)
             return redirect('landing')
-    else:
-        form = UserCreationForm()
-
-    return render(request, 'signup.html', {'form': form})
 
 
-def login_view(request):
-    error = None
-    if request.method == 'POST':
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            username, password = form.cleaned_data['username'], form.cleaned_data['password']
-            user = authenticate(request, username=username, password=password)
+class Login(FormView):
+    form_class = LoginForm
+    template_name = 'registration/login.html'
 
-            if user:
-                login(request, user)
-                return redirect('landing')
-        error = 'Incorrect username or password'
-    else:
-        form = LoginForm()
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
-    return render(request, 'registration/login.html', {'form': form, 'error': error})
+    def form_valid(self, form):
+        username, password = form.cleaned_data['username'], form.cleaned_data['password']
+        user = authenticate(self.request, username=username, password=password)
+
+        if user:
+            login(self.request, user)
+            return redirect('landing')
+
+        context = self.get_context_data()
+        context['error'] = 'Incorrect username or password'
+        return render(self.request, self.template_name, context)
 
 
-@login_required
-def logout_view(request):
-    if request.method != 'POST':
-        return Http404
+class LogOut(View):
+    def dispatch(self, request, *args, **kwargs):
+        if not self.request.method == 'POST':
+            raise Http404
+        return super().dispatch(request, *args, **kwargs)
 
-    logout(request)
-    return redirect('landing')
+    def post(self, request):
+        logout(self.request)
+        return redirect('landing')
 
 
 @login_required
