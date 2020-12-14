@@ -1,11 +1,11 @@
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.http import Http404
+from django.http import Http404, HttpResponseBadRequest
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.views import View
 from django.views.generic import CreateView, FormView
+from django.views.generic.base import TemplateResponseMixin
 from accounts.forms import UserProfileModelForm, LoginForm
 from accounts.models import UserProfile
 from pets.common import delete_image
@@ -23,6 +23,7 @@ class RegisterView(CreateView):
             UserProfile.objects.create(user=form, profile_picture='images/default.png')
             login(self.request, form)
             return redirect('landing')
+            # TODO: ADD SIGNAL FOR USERPROFILE CREATION
 
 
 class Login(FormView):
@@ -56,28 +57,50 @@ class LogOut(View):
         return redirect('landing')
 
 
-@login_required
-def profile(request, pk):
-    user = User.objects.get(pk=pk)
-    profile_picture = UserProfile.objects.get(user=user)
-    pets = Pet.objects.filter(user=profile_picture)
+class ProfileView(TemplateResponseMixin, View):
+    template_name = 'user_profile.html'
 
-    if request.method == 'POST':
-        photo_name = profile_picture.profile_picture.name.split('/')[-1]
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.user: User = None
+        self.user_profile: UserProfile = None
+        self.pets: Pet = None
+        self.form: UserProfileModelForm = None
+
+    def dispatch(self, request, *args, **kwargs):
+        if self.request.method not in ('GET', 'POST'):
+            raise HttpResponseBadRequest
+
+        try:
+            self.user = User.objects.get(pk=kwargs['pk'])
+            self.user_profile = UserProfile.objects.get(user=self.user)
+            self.pets = Pet.objects.filter(user=self.user_profile)
+            self.form = UserProfileModelForm(instance=self.user)
+        except (User.DoesNotExist, User.DoesNotExist, Pet.DoesNotExist):
+            raise Http404
+
+        return super().dispatch(request, *args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data()
+        return self.render_to_response(context)
+
+    def post(self, request, *args, **kwargs):
+        photo_name = self.user_profile.profile_picture.name.split('/')[-1]
         if photo_name != 'default.png':
-            delete_image(profile_picture.profile_picture.path)
+            delete_image(self.user_profile.profile_picture.path)
 
-        new_picture = request.FILES['profile_picture']
-        profile_picture.profile_picture = new_picture
-        profile_picture.save()
+        new_picture = self.request.FILES['profile_picture']
+        self.user_profile.profile_picture = new_picture
+        self.user_profile.save()
+        return self.get(self.request, *args, **kwargs)
 
-    form = UserProfileModelForm(instance=user)
-
-    context = {
-        'user': user,
-        'form': form,
-        'profile_picture': profile_picture.profile_picture,
-        'pets': pets
-    }
-
-    return render(request, 'user_profile.html', context)
+    def get_context_data(self, **kwargs):
+        context = {
+            'user': self.user,
+            'form': self.form,
+            'profile_picture': self.user_profile.profile_picture,
+            'pets': self.pets
+        }
+        context.update(**kwargs)
+        return context
