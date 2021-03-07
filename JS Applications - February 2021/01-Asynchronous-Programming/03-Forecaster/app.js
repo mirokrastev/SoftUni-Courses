@@ -37,6 +37,8 @@ async function main() {
     produceForecast(today, upcoming);
 }
 
+// Some dull DOM manipulations ahead..
+// I should probably create a factory function for these steps. Maybe one day!
 function produceForecast(todayForecast, upcomingForecast) {
     console.log(upcomingForecast);
     forecastDiv.querySelector('#current').innerHTML += `
