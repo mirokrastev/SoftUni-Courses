@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biggest Catch</title>
+    <link rel="stylesheet" href="./static/styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>Biggest Catch</h1>
+        <nav>
+            <a class="active">Home</a>
+            <div id="guest">
+                <a href="login.html">Login</a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <fieldset id="main">
+            <legend>Catches</legend>
+            <div id="catches">
+            </div>
+        </fieldset>
+        <aside>
+            <button id="load" class="load">Load</button>
+            <form id="addForm">
+                <legend>Add Catch</legend>
+                <label>Angler</label>
+                <input name="angler" type="text" class="angler" />
+                <label>Weight</label>
+                <input name="weight" type="number" class="weight" />
+                <label>Species</label>
+                <input name="species" type="text" class="species" />
+                <label>Location</label>
+                <input name="location" type="text" class="location" />
+                <label>Bait</label>
+                <input name="bait" type="text" class="bait" />
+                <label>Capture Time</label>
+                <input name="captureTime" type="number" class="captureTime" />
+                <button id="add" disabled class="add">Add</button>
+            </form>
+        </aside>
+    </main>
+    <script src="./app.js"></script>
+</body>
+
+</html>
