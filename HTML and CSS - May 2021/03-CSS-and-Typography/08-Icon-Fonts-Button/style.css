@@ -1,0 +1,13 @@
+.green-btn {
+    background: #008000;
+}
+
+.yellow-btn {
+    background: #FF8C00;
+}
+
+.btn {
+    color: white;
+    padding: 2px 5px;
+    border-radius: 3px;   
+}
