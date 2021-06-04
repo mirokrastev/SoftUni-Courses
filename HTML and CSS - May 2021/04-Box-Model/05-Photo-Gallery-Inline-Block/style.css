@@ -1,0 +1,19 @@
+ul.gallery {
+    max-width: 850px;
+    box-sizing: border-box;
+}
+
+li {
+    display: inline-block;
+    border-width: -0.4rem;
+    border-color: black;
+    border-style: solid;
+    list-style: none;
+    padding: 10px;
+    margin: 10px;
+}
+
+img {
+    max-height: 250px;
+    max-width: 200px;
+}

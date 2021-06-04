@@ -1,0 +1,20 @@
+html {
+    margin: 50px 100px;
+    font-family: Helvetica, sans-serif;
+}
+
+#site-title {
+    font-size: 50px;
+    font-weight: bold;
+}
+
+nav {
+    display: inline-block;
+    margin-left: 100px;;
+}
+
+nav li {
+    display: inline-block;
+    color: green;
+    margin: 20px;
+}
