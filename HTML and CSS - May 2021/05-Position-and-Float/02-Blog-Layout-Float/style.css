@@ -1,0 +1,99 @@
+html {
+    size: 16px;
+    line-height: 1.5;
+    font-family: Helvetica, sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    position: relative;
+    margin: auto;
+    width: 1300px;
+}
+
+.wrapper {
+    width: 950px;
+}
+
+article {
+    margin-bottom: 50px;
+}
+
+h1 {
+    font-size: 30px;
+}
+
+.site-title {
+    display: inline-block;
+    font-weight: bold;
+    text-transform: uppercase;
+
+    font-size: 50px;
+    padding-bottom: 30px;
+    border-bottom: 5px solid black;
+    width: 100%;
+
+    margin-bottom: 10px;
+}
+
+.image {
+    padding: 7px;
+    border: 4px solid black;
+}
+
+.quote > p {
+    float: left;
+    width: 45%;
+    clear: both;
+}
+
+
+.quote blockquote {
+    font-family: Georgia, serif;
+    float: right;
+    width: 45%;
+    padding-left: 10px;
+    transform: translate(-10px);
+    height: 200px;
+    border-left: 5px solid gainsboro;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: Georgia, serif;
+}
+
+.quote blockquote * {
+    font-style: italic;
+    color: rgba(128, 117, 117, 0.9)
+}
+
+.quote blockquote > p {
+    position: relative;
+    bottom: 20px;
+    padding-left: 25px;
+}
+
+.quote blockquote span {
+    float: right;
+}
+
+#first {
+    float: right;
+}
+
+#second {
+    float: left;
+    margin-right: 15px;
+    margin-bottom: 10px;
+}
+
+aside li a {
+    color: #6D9C66;
+    list-style-type: square;
+}
+
+aside {
+    position: absolute;
+    left: 80%;
+    bottom: 67%;
+}

@@ -1,0 +1,35 @@
+body {
+    background-color: rgb(238, 238, 238);
+    font-family: Georgia, serif;
+}
+
+section {
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 0px 33px 4px rgba(0,0,0,0.53);
+    border-radius: 5px;
+
+    width: 400px;
+}
+
+section img {
+    /* Just for Judge, remove position: absolute if you want to use it */
+    position: absolute;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    width: 400px;
+}
+
+.card-body {
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 60px;
+}
+
+.card-body button {
+    background-color: rgb(0, 153, 0);
+    color: white;
+    padding: 7px 15px;
+    border-radius: 5px;
+    border: none;
+    float: right;
+};

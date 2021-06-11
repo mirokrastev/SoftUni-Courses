@@ -1,0 +1,85 @@
+html {
+    size: 16px;
+    line-height: 1.5;
+    font-family: Helvetica, sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgb(238, 238, 238);
+    margin: auto;
+    width: 950px;
+}
+
+section {
+    margin-bottom: 50px;
+}
+
+h1 {
+    font-size: 30px;
+}
+
+h1, h2, h3, h4, h5, h6, blockquote {
+    font-family: Georgia, serif;
+}
+
+#site-title {
+    display: inline-block;
+    font-weight: bold;
+    text-transform: uppercase;
+
+    font-size: 50px;
+    padding-bottom: 30px;
+    border-bottom: 5px solid black;
+    width: 100%;
+
+    margin-bottom: 10px;
+}
+
+.image {
+    padding: 7px;
+    border: 4px solid black;
+    box-shadow: rgba(0, 0, 0, 0, 0.25);
+    background-color: rgb(255, 255, 255);
+}
+
+.quote > p {
+    float: left;
+    width: 45%;
+    clear: both;
+}
+
+
+.quote blockquote {
+    float: right;
+    width: 45%;
+    padding-left: 10px;
+    transform: translate(-10px);
+    height: 200px;
+    border-left: 5px solid gainsboro;
+}
+
+.quote blockquote * {
+    font-style: italic;
+    color: rgba(128, 117, 117, 0.9)
+}
+
+.quote blockquote > p {
+    position: relative;
+    bottom: 20px;
+    padding-left: 25px;
+}
+
+.quote blockquote span {
+    float: right;
+}
+
+#first {
+    float: right;
+}
+
+#second {
+    float: left;
+    margin-right: 15px;
+    margin-bottom: 10px;
+}
