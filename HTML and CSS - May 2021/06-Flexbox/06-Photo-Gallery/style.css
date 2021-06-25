@@ -1,0 +1,26 @@
+body, ul, li {
+    display: flex;
+}
+
+.gallery {
+    width: 1300px;
+}
+
+.gallery ul {
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    list-style-type: none;
+    align-items: stretch;
+    justify-content: space-between;
+}
+
+.gallery ul li {
+    border: 10px solid black;
+    padding: 20px 10px;
+    margin: 30px auto;
+}
+
+.gallery ul li img {
+    margin: auto;
+}

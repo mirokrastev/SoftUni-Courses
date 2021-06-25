@@ -1,0 +1,25 @@
+body {
+    background-color: rgb(238, 238, 238);
+    
+    display: flex;
+}
+
+.container {
+    display: flex;
+}
+
+.container img {
+    box-shadow: 0px 0px 15px 5px rgba(0,0,0,0.38);
+    border-radius: 5px;
+
+    width: 150px;
+    height: 400px;
+
+    object-fit: cover;
+}
+
+#image2 {
+    width: 600px;
+    object-fit: none;
+    margin: 20px;
+}

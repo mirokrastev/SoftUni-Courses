@@ -1,0 +1,74 @@
+html {
+    font-family: Helvetica, sans-serif;
+    font-size: 20px;
+}
+
+.container {
+    display: flex;
+    max-width: 15vw;
+    height: 35rem;
+    flex-direction: column;
+    flex-wrap: wrap;
+    max-height: 450px;
+}
+
+.container span {
+    border-width: 1px;
+    border-color: black;
+    border-style: solid;
+
+    max-width: 70px;
+    padding: 10px;
+    text-align: center;
+
+    margin: 5px;
+
+}
+
+#el11 {
+    order: 0;
+}
+
+#el2 {
+    order: 1;
+}
+
+#el12 {
+    order: 2;
+}
+
+#el4 {
+    order: 3;
+}
+
+#el8 {
+    order: 4;
+}
+
+#el9 {
+    order: 5;
+}
+
+#el6 {
+    order: 6;
+}
+
+#el5 {
+    order: 7;
+}
+
+#el1 {
+    order: 8;
+}
+
+#el3 {
+    order: 9;
+}
+
+#el7 {
+    order: 10;
+}
+
+#el10 {
+    order: 11;
+}
