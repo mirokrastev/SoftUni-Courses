@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+body {
+    padding: 0;
+    margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat';
+}
+
+p {
+    font-family: 'Open Sans';
+}
+
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    left: 400px;
+    max-width: 1200px;
+}
+
+.main-header img {
+    width: 200px;
+    height: 40px;
+    align-self: center;
+}
+
+.wrapper {
+    margin: auto 200px;
+}
+
+.main-header-button {
+    width: 110px;
+    align-self: center;
+    background-color: #FFB600;
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+}
+
+.navbar {
+    display: flex;
+    background-color: #23282D;
+    color: white;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.navbar ul {
+    list-style-type: none;
+    position: relative;
+    left: 350px;
+}
+
+.navbar i {
+    position: relative;
+    right: 350px;
+}
+
+.navbar ul li {
+    display: inline-block;
+    padding-right: 25px;
+}
+
+header i {
+    align-self: center;
+}
+
+.banner {
+    position: relative;
+}
+
+.banner .banner-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    color: white;
+}
+
+.content {
+    display: flex;
+    padding: 50px;
+}
+
+.content img {
+    width: 650px;
+    height: 550px;
+}
+
+.content .content-text {
+    padding-left: 50px;
+}
+
+.content .content-text h2 {
+    font-weight: 900;
+}
+
+.content .content-text button {
+    background-color: #FFB600;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: none;
+    font-weight: bold;
+}
+
+.about-footer .about-footer-nested {
+    list-style-type: none;
+}
+
+.about-footer .about-footer-nested li {
+    display: inline-block;
+}
+
+.copyright-footer {
+    display: flex;
+    background-color: #FFB600;
+    justify-content: space-between;
+    left: 350px;
+
+}
+
+.copyright-footer p {
+    position: relative;
+    left: 250px;
+}
+
+.copyright-footer nav {
+    position: relative;
+    right: 300px;
+}
+
+.copyright-footer nav ul {
+    list-style-type: none;
+}
+
+.copyright-footer nav ul li {
+    display: inline-block;
+
+    padding-right: 10px;
+}
